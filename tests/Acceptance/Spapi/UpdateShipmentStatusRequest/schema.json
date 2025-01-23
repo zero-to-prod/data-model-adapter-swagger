@@ -121,6 +121,20 @@
         }
       },
       "description": "description"
+    },
+    "Money": {
+      "type": "object",
+      "properties": {
+        "CurrencyCode": {
+          "type": "string",
+          "description": "The three-digit currency code. In ISO 4217 format."
+        },
+        "Amount": {
+          "type": "string",
+          "description": "The currency amount."
+        }
+      },
+      "description": "The monetary value of the order."
     }
   }
 }
