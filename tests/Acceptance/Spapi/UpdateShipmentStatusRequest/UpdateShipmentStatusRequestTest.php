@@ -48,11 +48,17 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 /** @see \$orderItems */
                 public const orderItems = 'orderItems';
                 /**
-                 * Enumerated list of miscellaneous delivery attributes associated with the shipping address.
+                 * description
                  *
                  * @see \$OtherAttributes
                  */
                 public const OtherAttributes = 'OtherAttributes';
+                /**
+                 * description
+                 *
+                 * @see \$PaymentExecutionDetailItemList
+                 */
+                public const PaymentExecutionDetailItemList = 'PaymentExecutionDetailItemList';
                 /** description */
                 public string \$marketplaceId;
                 /** description */
@@ -60,11 +66,17 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 /** description */
                 public OrderItems \$orderItems;
                 /** 
-                 * Enumerated list of miscellaneous delivery attributes associated with the shipping address.
+                 * description
                  * @var array<int|string, OtherDeliveryAttributesEnum>
                  */
                 #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => OtherDeliveryAttributesEnum::class])]
                 public array \$OtherAttributes;
+                /** 
+                 * description
+                 * @var array<int|string, PaymentExecutionDetailItem>
+                 */
+                #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => PaymentExecutionDetailItem::class])]
+                public array \$PaymentExecutionDetailItemList;
                 }
                 PHP
         );
