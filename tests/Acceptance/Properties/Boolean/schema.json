@@ -1,0 +1,17 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API",
+    "version": "v1.0.0"
+  },
+  "definitions": {
+    "User": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "paths": {}
+}

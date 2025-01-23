@@ -1,0 +1,72 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v0",
+    "title": ""
+  },
+  "paths": {},
+  "definitions": {
+    "UpdateShipmentStatusRequest": {
+      "type": "object",
+      "properties": {
+        "marketplaceId": {
+          "$ref": "#/definitions/MarketplaceId"
+        },
+        "shipmentStatus": {
+          "$ref": "#/definitions/ShipmentStatus"
+        },
+        "orderItems": {
+          "$ref": "#/definitions/OrderItems"
+        }
+      },
+      "required": [
+        "marketplaceId",
+        "shipmentStatus"
+      ]
+    },
+    "MarketplaceId": {
+      "description": "description",
+      "type": "string"
+    },
+    "ShipmentStatus": {
+      "description": "description",
+      "type": "string",
+      "enum": [
+        "ReadyForPickup",
+        "PickedUp",
+        "RefusedPickup"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ReadyForPickup",
+          "description": "Ready for pickup."
+        },
+        {
+          "value": "PickedUp",
+          "description": "Picked up."
+        },
+        {
+          "value": "RefusedPickup",
+          "description": "Refused pickup."
+        }
+      ]
+    },
+    "OrderItems": {
+      "description": "description",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "orderItemId": {
+            "description": "The order item's unique identifier.",
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The quantity for which to update the shipment status."
+          }
+        }
+      }
+    }
+  }
+}
