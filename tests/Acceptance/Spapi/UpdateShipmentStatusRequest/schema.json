@@ -23,7 +23,14 @@
           "items": {
             "$ref": "#/definitions/OtherDeliveryAttributes"
           },
-          "description": "Enumerated list of miscellaneous delivery attributes associated with the shipping address."
+          "description": "description"
+        },
+        "PaymentExecutionDetailItemList": {
+          "type": "array",
+          "description": "description",
+          "items": {
+            "$ref": "#/definitions/PaymentExecutionDetailItem"
+          }
         }
       },
       "required": [
@@ -97,6 +104,23 @@
           "description": "Indicates whether pallet delivery is disabled for the address."
         }
       ]
+    },
+    "PaymentExecutionDetailItem": {
+      "type": "object",
+      "required": [
+        "Payment",
+        "PaymentMethod"
+      ],
+      "properties": {
+        "Payment": {
+          "$ref": "#/definitions/Money"
+        },
+        "PaymentMethod": {
+          "type": "string",
+          "description": "description"
+        }
+      },
+      "description": "description"
     }
   }
 }
