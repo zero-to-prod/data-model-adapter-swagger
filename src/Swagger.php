@@ -102,8 +102,15 @@ class Swagger
                                 $comment = "/** {$Swagger->definitions[basename($PropertySchema->ref)]->description} */";
                             }
 
+                            if (!$propertyData[Property::comment] && isset($PropertySchema->description)) {
+                                $comment = "/** $PropertySchema->description */";
+                            }
+
                             if ($PropertySchema->items?->ref && $PropertySchema->type === 'array') {
                                 $class = Classname::generate(basename($PropertySchema->items->ref));
+                                if($Swagger->definitions[$class]->enum) {
+                                    $class .= 'Enum';
+                                }
                                 $propertyData[Property::attributes] = [
                                     "#[\\Zerotoprod\\DataModel\\Describe(['cast' => [\\Zerotoprod\\DataModelHelper\\DataModelHelper::class, 'mapOf'], 'type' => $class::class])]"
                                 ];
@@ -115,10 +122,6 @@ class Swagger
                                 $doc_block_parts[] = "@var array<int|string, $class>";
 
                                 $comment = "/** \n * ".implode("\n * ", $doc_block_parts)."\n */";
-                            }
-
-                            if (!$propertyData[Property::comment] && isset($PropertySchema->description)) {
-                                $comment = "/** $PropertySchema->description */";
                             }
 
                             $propertyData[Property::comment] = $comment;
