@@ -47,12 +47,24 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 public const shipmentStatus = 'shipmentStatus';
                 /** @see \$orderItems */
                 public const orderItems = 'orderItems';
+                /**
+                 * Enumerated list of miscellaneous delivery attributes associated with the shipping address.
+                 *
+                 * @see \$OtherAttributes
+                 */
+                public const OtherAttributes = 'OtherAttributes';
                 /** description */
                 public string \$marketplaceId;
                 /** description */
                 public ShipmentStatusEnum \$shipmentStatus;
                 /** description */
                 public OrderItems \$orderItems;
+                /** 
+                 * Enumerated list of miscellaneous delivery attributes associated with the shipping address.
+                 * @var array<int|string, OtherDeliveryAttributesEnum>
+                 */
+                #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => OtherDeliveryAttributesEnum::class])]
+                public array \$OtherAttributes;
                 }
                 PHP
         );
