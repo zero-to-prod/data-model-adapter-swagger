@@ -16,9 +16,9 @@ use Zerotoprod\Psr4Classname\Classname;
 
 class Swagger
 {
-    public static function adapt(string $swagger_schema): Components
+    public static function adapt(array $swagger_schema): Components
     {
-        $Swagger = SwaggerModel::from(json_decode($swagger_schema, true));
+        $Swagger = SwaggerModel::from($swagger_schema);
         $Models = [];
         $Enums = [];
 

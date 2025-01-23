@@ -15,7 +15,7 @@ class PropertyCommentTest extends TestCase
     #[Test] public function generate(): void
     {
         Engine::generate(
-            Swagger::adapt(file_get_contents(__DIR__.'/schema.json')),
+            Swagger::adapt(json_decode(file_get_contents(__DIR__.'/schema.json'), true)),
             Config::from([
                 Config::model => [
                     ModelConfig::directory => self::$test_dir,

@@ -6,7 +6,6 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Zerotoprod\DataModelAdapterSwagger\Swagger;
 use Zerotoprod\DataModelGenerator\Models\Components;
-use Zerotoprod\DataModelGenerator\Models\Config;
 
 class AdaptTest extends TestCase
 {
@@ -15,7 +14,7 @@ class AdaptTest extends TestCase
         self::assertTrue(
             is_a(
                 object_or_class: Swagger::adapt(
-                    file_get_contents(__DIR__.'/schema.json'),
+                    json_decode(file_get_contents(__DIR__.'/schema.json'), true),
                 ),
                 class: Components::class
             )
