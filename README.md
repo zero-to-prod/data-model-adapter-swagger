@@ -18,7 +18,7 @@
 
 ## Introduction
 
-An adapter for the OpenAPI 3.0 for [DataModelGenerator](https://github.com/zero-to-prod/data-model-generator).
+Adapter for the Swagger 2.0 for [DataModelGenerator](https://github.com/zero-to-prod/data-model-generator).
 
 ## Requirements
 
@@ -30,6 +30,16 @@ You can install this package via Composer.
 
 ```shell
 composer require zero-to-prod/data-model-adapter-swagger
+```
+
+## Usage
+
+Generate components from a Swagger 2.0 schema.
+
+```php
+namespace Zerotoprod\DataModelAdapterSwagger;
+
+$Components = Swagger::adapt(file_get_contents(__DIR__.'/schema.json'))
 ```
 
 This will add the package to your project’s dependencies and create an autoloader entry for it.
