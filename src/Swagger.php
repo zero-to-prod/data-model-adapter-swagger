@@ -78,9 +78,9 @@ class Swagger
                 Model::filename => Classname::generate($name, '.php'),
                 Model::constants => $constants,
                 Model::properties => array_combine(
-                    array_keys($Schema->properties),
+                    array_keys($Properties),
                     array_map(
-                        static function (string $property_name, Schema $PropertySchema) use ($Schema, $Swagger) {
+                        static function (string $property_name, Schema $PropertySchema) use ($Swagger) {
                             $propertyData = [
                                 Property::attributes => [],
                                 Property::comment => null,
@@ -92,7 +92,7 @@ class Swagger
                                 $types = [basename($PropertySchema->ref).'Enum'];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
                                 $types = [basename($PropertySchema->ref)];
-                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object') {
+                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {
                                 $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]);
                             } else {
                                 $types = PropertyTypeResolver::resolve($PropertySchema);
@@ -129,8 +129,8 @@ class Swagger
 
                             return $propertyData;
                         },
-                        array_keys($Schema->properties),
-                        $Schema->properties
+                        array_keys($Properties),
+                        $Properties
                     )
                 ),
             ];
