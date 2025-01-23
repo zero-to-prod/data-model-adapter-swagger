@@ -17,6 +17,13 @@
         },
         "orderItems": {
           "$ref": "#/definitions/OrderItems"
+        },
+        "OtherAttributes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OtherDeliveryAttributes"
+          },
+          "description": "Enumerated list of miscellaneous delivery attributes associated with the shipping address."
         }
       },
       "required": [
@@ -67,6 +74,29 @@
           }
         }
       }
+    },
+    "OtherDeliveryAttributes": {
+      "type": "string",
+      "description": "Miscellaneous delivery attributes associated with the shipping address.",
+      "enum": [
+        "HAS_ACCESS_POINT",
+        "PALLET_ENABLED",
+        "PALLET_DISABLED"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "HAS_ACCESS_POINT",
+          "description": "Indicates whether the delivery has an access point pickup or drop-off location."
+        },
+        {
+          "value": "PALLET_ENABLED",
+          "description": "Indicates whether pallet delivery is enabled for the address."
+        },
+        {
+          "value": "PALLET_DISABLED",
+          "description": "Indicates whether pallet delivery is disabled for the address."
+        }
+      ]
     }
   }
 }
