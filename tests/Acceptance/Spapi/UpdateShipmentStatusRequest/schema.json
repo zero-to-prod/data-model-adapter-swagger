@@ -25,12 +25,9 @@
           },
           "description": "description"
         },
-        "PaymentExecutionDetailItemList": {
-          "type": "array",
+        "PaymentExecutionDetail": {
           "description": "description",
-          "items": {
-            "$ref": "#/definitions/PaymentExecutionDetailItem"
-          }
+          "$ref": "#/definitions/PaymentExecutionDetailItemList"
         }
       },
       "required": [
@@ -104,6 +101,13 @@
           "description": "Indicates whether pallet delivery is disabled for the address."
         }
       ]
+    },
+    "PaymentExecutionDetailItemList": {
+      "type": "array",
+      "description": "description",
+      "items": {
+        "$ref": "#/definitions/PaymentExecutionDetailItem"
+      }
     },
     "PaymentExecutionDetailItem": {
       "type": "object",
