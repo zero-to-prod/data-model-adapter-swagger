@@ -99,7 +99,9 @@ class Swagger
                             $comment = null;
                             if ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->enum) {
                                 $types = [basename($PropertySchema->ref).'Enum'];
-                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
+                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->type === 'object') {
+                                $types = ['array'];
+                            }elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
                                 $types = [basename($PropertySchema->ref)];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {
                                 $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]);
