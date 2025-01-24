@@ -65,6 +65,12 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  * @see \$PaymentMethodDetails
                  */
                 public const PaymentMethodDetails = 'PaymentMethodDetails';
+                /**
+                 * The list of transparency codes.
+                 *
+                 * @see \$transparencyCodes
+                 */
+                public const transparencyCodes = 'transparencyCodes';
                 /** description */
                 public string \$marketplaceId;
                 /** description */
@@ -73,7 +79,7 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  * @var array<int|string, OrderItemsItem>
                  */
                 #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => OrderItemsItem::class])]
-                public OrderItems \$orderItems;
+                public array \$orderItems;
                 /** 
                  * description
                  * @var array<int|string, OtherDeliveryAttributesEnum>
@@ -88,6 +94,12 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 public array \$PaymentExecutionDetail;
                 /** A list of payment methods for the order. */
                 public string \$PaymentMethodDetails;
+                /** 
+                 * The list of transparency codes.
+                 * @var array<int|string, TransparencyCode>
+                 */
+                #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => TransparencyCode::class])]
+                public array \$transparencyCodes;
                 }
                 PHP
         );
