@@ -56,14 +56,17 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 /**
                  * description
                  *
-                 * @see \$PaymentExecutionDetailItemList
+                 * @see \$PaymentExecutionDetail
                  */
-                public const PaymentExecutionDetailItemList = 'PaymentExecutionDetailItemList';
+                public const PaymentExecutionDetail = 'PaymentExecutionDetail';
                 /** description */
                 public string \$marketplaceId;
                 /** description */
                 public ShipmentStatusEnum \$shipmentStatus;
-                /** description */
+                /** 
+                 * @var array<int|string, OrderItemsItem>
+                 */
+                #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => OrderItemsItem::class])]
                 public OrderItems \$orderItems;
                 /** 
                  * description
@@ -76,7 +79,7 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  * @var array<int|string, PaymentExecutionDetailItem>
                  */
                 #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => PaymentExecutionDetailItem::class])]
-                public array \$PaymentExecutionDetailItemList;
+                public array \$PaymentExecutionDetail;
                 }
                 PHP
         );
