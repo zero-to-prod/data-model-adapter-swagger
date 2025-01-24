@@ -29,6 +29,9 @@ class Swagger
             if ($Schema->type === 'array' && $Schema->items->ref) {
                 continue;
             }
+            if ($Schema->type === 'array' && $Schema->items->type === 'string') {
+                continue;
+            }
             if ($Schema->type === 'string' && $Schema->enum) {
                 $Enums[$name] = [
                     Enum::comment => $Schema->description ? "/** $Schema->description */" : null,
