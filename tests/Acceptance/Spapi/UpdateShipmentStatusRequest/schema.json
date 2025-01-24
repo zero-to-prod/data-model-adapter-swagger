@@ -32,12 +32,27 @@
         "PaymentMethodDetails": {
           "description": "A list of payment methods for the order.",
           "$ref": "#/definitions/PaymentMethodDetailItemList"
+        },
+        "transparencyCodes": {
+          "description": "The list of transparency codes.",
+          "$ref": "#/definitions/TransparencyCodeList"
         }
       },
       "required": [
         "marketplaceId",
         "shipmentStatus"
       ]
+    },
+    "TransparencyCodeList": {
+      "type": "array",
+      "description": "A list of order items.",
+      "items": {
+        "$ref": "#/definitions/TransparencyCode"
+      }
+    },
+    "TransparencyCode": {
+      "type": "string",
+      "description": "The Transparency code associated with the item."
     },
     "PaymentMethodDetailItemList": {
       "type": "array",
