@@ -28,12 +28,23 @@
         "PaymentExecutionDetail": {
           "description": "description",
           "$ref": "#/definitions/PaymentExecutionDetailItemList"
+        },
+        "PaymentMethodDetails": {
+          "description": "A list of payment methods for the order.",
+          "$ref": "#/definitions/PaymentMethodDetailItemList"
         }
       },
       "required": [
         "marketplaceId",
         "shipmentStatus"
       ]
+    },
+    "PaymentMethodDetailItemList": {
+      "type": "array",
+      "description": "description",
+      "items": {
+        "type": "string"
+      }
     },
     "MarketplaceId": {
       "description": "description",
