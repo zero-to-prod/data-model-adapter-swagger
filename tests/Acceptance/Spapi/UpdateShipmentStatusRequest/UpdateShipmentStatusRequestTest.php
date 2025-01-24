@@ -59,6 +59,12 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  * @see \$PaymentExecutionDetail
                  */
                 public const PaymentExecutionDetail = 'PaymentExecutionDetail';
+                /**
+                 * A list of payment methods for the order.
+                 *
+                 * @see \$PaymentMethodDetails
+                 */
+                public const PaymentMethodDetails = 'PaymentMethodDetails';
                 /** description */
                 public string \$marketplaceId;
                 /** description */
@@ -80,6 +86,8 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  */
                 #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => PaymentExecutionDetailItem::class])]
                 public array \$PaymentExecutionDetail;
+                /** A list of payment methods for the order. */
+                public string \$PaymentMethodDetails;
                 }
                 PHP
         );
