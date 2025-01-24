@@ -86,7 +86,7 @@ class Swagger
                 Model::properties => array_combine(
                     array_keys($Properties),
                     array_map(
-                        static function (string $property_name, Schema $PropertySchema) use ($name, $inline_object, $Swagger) {
+                        static function (string $property_name, Schema $PropertySchema) use ($Swagger) {
                             $propertyData = [
                                 Property::attributes => [],
                                 Property::comment => null,
@@ -112,7 +112,10 @@ class Swagger
                                 $comment = "/** $PropertySchema->description */";
                             }
 
-                            if (($PropertySchema->items?->ref && $PropertySchema->type === 'array') || ($PropertySchema->ref && basename($PropertySchema->ref) && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array')) {
+                            if (
+                                ($PropertySchema->items?->ref && $PropertySchema->type === 'array')
+                                || ($PropertySchema->ref && basename($PropertySchema->ref) && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->type !== 'string')
+                            ) {
                                 $class = null;
                                 if ($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->ref) {
                                     $types = ['array'];
@@ -137,6 +140,10 @@ class Swagger
                                 $doc_block_parts[] = "@var array<int|string, $class>";
 
                                 $comment = "/** \n * ".implode("\n * ", $doc_block_parts)."\n */";
+                            }
+
+                            if($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->type === 'string'){
+                                $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]->items);
                             }
 
                             $propertyData[Property::comment] = $comment;
