@@ -1,7 +1,7 @@
 # Zerotoprod\DataModelAdapterSwagger
 
 [![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/data-model-adapter-swagger)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/data-model-adapter-swagger/test.yml?label=tests)](https://github.com/zero-to-prod/data-model-adapter-swagger/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/data-model-adapter-swagger/test.yml?label=test)](https://github.com/zero-to-prod/data-model-adapter-swagger/actions)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/data-model-adapter-swagger?color=blue)](https://packagist.org/packages/zero-to-prod/data-model-adapter-swagger/stats)
 [![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/data-model-adapter-swagger?color=f28d1a)](https://packagist.org/packages/zero-to-prod/data-model-adapter-swagger)
 [![License](https://img.shields.io/packagist/l/zero-to-prod/data-model-adapter-swagger?color=red)](https://github.com/zero-to-prod/data-model-adapter-swagger/blob/main/LICENSE.md)
