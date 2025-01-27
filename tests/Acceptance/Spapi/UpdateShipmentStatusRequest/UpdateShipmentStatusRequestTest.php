@@ -96,9 +96,8 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 public string \$PaymentMethodDetails;
                 /** 
                  * The list of transparency codes.
-                 * @var array<int|string, TransparencyCode>
+                 * @var array<string>
                  */
-                #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => TransparencyCode::class])]
                 public array \$transparencyCodes;
                 }
                 PHP
