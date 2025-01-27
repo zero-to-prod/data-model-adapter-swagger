@@ -97,11 +97,12 @@ class Swagger
                             ];
 
                             $comment = null;
+                            $attributes = null;
                             if ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->enum) {
                                 $types = [basename($PropertySchema->ref).'Enum'];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->type === 'object') {
                                 $types = ['array'];
-                            }elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
+                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
                                 $types = [basename($PropertySchema->ref)];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {
                                 $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]);
@@ -125,8 +126,10 @@ class Swagger
                                 if ($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->ref) {
                                     $types = ['array'];
                                     $class = Classname::generate(basename($Swagger->definitions[basename($PropertySchema->ref)]->items->ref));
-                                } else if($PropertySchema->items?->ref) {
-                                    $class = Classname::generate(basename($PropertySchema->items?->ref));
+                                } else {
+                                    if ($PropertySchema->items?->ref) {
+                                        $class = Classname::generate(basename($PropertySchema->items?->ref));
+                                    }
                                 }
                                 if (isset($Swagger->definitions[$class]) && $Swagger->definitions[$class]->enum) {
                                     $class .= 'Enum';
@@ -134,9 +137,7 @@ class Swagger
                                 if ($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items?->type === 'object') {
                                     $class = Classname::generate(basename($PropertySchema->ref)).'Item';
                                 }
-                                $propertyData[Property::attributes] = [
-                                    "#[\\Zerotoprod\\DataModel\\Describe(['cast' => [\\Zerotoprod\\DataModelHelper\\DataModelHelper::class, 'mapOf'], 'type' => $class::class])]"
-                                ];
+                                $attributes = ["#[\\Zerotoprod\\DataModel\\Describe(['cast' => [\\Zerotoprod\\DataModelHelper\\DataModelHelper::class, 'mapOf'], 'type' => $class::class])]"];
 
                                 $doc_block_parts = [];
                                 if ($PropertySchema->description) {
@@ -147,12 +148,31 @@ class Swagger
                                 $comment = "/** \n * ".implode("\n * ", $doc_block_parts)."\n */";
                             }
 
-                            if($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->type === 'string'){
+                            if ($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array' && $Swagger->definitions[basename($PropertySchema->ref)]->items->type === 'string') {
                                 $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]->items);
+                            }
+
+                            if (isset($PropertySchema->ref)) {
+                                $a = $Swagger->definitions[basename($PropertySchema->ref)];
+                                if (isset($a->items->ref)) {
+                                    $b = $Swagger->definitions[basename($a->items->ref)];
+                                    if ($b->type !== 'object') {
+                                        $types = ['array'];
+                                        $type = implode('|',  PropertyTypeResolver::resolve($b));
+                                        $comment = <<<PHP
+                                        /**
+                                         * $b->description
+                                         * @var array<$type>
+                                         */
+                                        PHP;
+                                        $attributes = null;
+                                    }
+                                }
                             }
 
                             $propertyData[Property::comment] = $comment;
                             $propertyData[Property::types] = $types;
+                            $propertyData[Property::attributes] = $attributes;
 
                             return $propertyData;
                         },
