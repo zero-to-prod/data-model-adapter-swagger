@@ -94,8 +94,8 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 public array \$PaymentExecutionDetail;
                 /** A list of payment methods for the order. */
                 public string \$PaymentMethodDetails;
-                /** 
-                 * The list of transparency codes.
+                /**
+                 * The Transparency code associated with the item.
                  * @var array<string>
                  */
                 public array \$transparencyCodes;
