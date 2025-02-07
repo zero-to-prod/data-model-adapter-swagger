@@ -71,6 +71,12 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  * @see \$transparencyCodes
                  */
                 public const transparencyCodes = 'transparencyCodes';
+                /**
+                 * The current order status.
+                 *
+                 * @see \$OrderStatus
+                 */
+                public const OrderStatus = 'OrderStatus';
                 /** description */
                 public string \$marketplaceId;
                 /** description */
@@ -99,6 +105,8 @@ class UpdateShipmentStatusRequestTest extends TestCase
                  * @var array<string>
                  */
                 public array \$transparencyCodes;
+                /** The current order status. */
+                public OrderStatusEnum \$OrderStatus;
                 }
                 PHP
         );
