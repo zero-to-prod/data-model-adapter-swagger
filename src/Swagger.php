@@ -178,7 +178,7 @@ class Swagger
 
                                 $Enums[$name] = [
                                     Enum::comment => $Schema->description ? "/** $Schema->description */" : null,
-                                    Enum::filename => Classname::generate($enum_classname, 'Enum.php'),
+                                    Enum::filename => Classname::generate($property_name, 'Enum.php'),
                                     Enum::backed_type => BackedEnumType::string,
                                     Enum::cases => array_map(
                                         static fn($value) => [
