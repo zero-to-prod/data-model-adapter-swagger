@@ -99,7 +99,7 @@ class UpdateShipmentStatusRequestTest extends TestCase
                 #[\Zerotoprod\DataModel\Describe(['cast' => [\Zerotoprod\DataModelHelper\DataModelHelper::class, 'mapOf'], 'type' => PaymentExecutionDetailItem::class])]
                 public array \$PaymentExecutionDetail;
                 /** A list of payment methods for the order. */
-                public string \$PaymentMethodDetails;
+                public array \$PaymentMethodDetails;
                 /**
                  * The Transparency code associated with the item.
                  * @var array<string>
