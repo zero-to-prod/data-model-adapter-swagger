@@ -36,6 +36,13 @@
         "transparencyCodes": {
           "description": "The list of transparency codes.",
           "$ref": "#/definitions/TransparencyCodeList"
+        },
+        "OrderStatus": {
+          "type": "string",
+          "description": "The current order status.",
+          "enum": [
+            "Pending"
+          ]
         }
       },
       "required": [
