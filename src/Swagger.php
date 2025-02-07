@@ -89,7 +89,7 @@ class Swagger
                 Model::properties => array_combine(
                     array_keys($Properties),
                     array_map(
-                        static function (string $property_name, Schema $PropertySchema) use ($name, $Schema, $Swagger, &$Enums) {
+                        static function (string $property_name, Schema $PropertySchema) use ($Schema, $Swagger, &$Enums) {
                             $propertyData = [
                                 Property::attributes => [],
                                 Property::comment => null,
@@ -104,6 +104,8 @@ class Swagger
                                 $types = ['array'];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
                                 $types = [basename($PropertySchema->ref)];
+                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {
+                                $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]);
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {
                                 $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]);
                             } else {
@@ -158,7 +160,7 @@ class Swagger
                                     $b = $Swagger->definitions[basename($a->items->ref)];
                                     if ($b->type !== 'object') {
                                         $types = ['array'];
-                                        $type = implode('|',  PropertyTypeResolver::resolve($b));
+                                        $type = implode('|', PropertyTypeResolver::resolve($b));
                                         $comment = <<<PHP
                                         /**
                                          * $b->description
@@ -170,7 +172,7 @@ class Swagger
                                 }
                             }
 
-                            if($PropertySchema->type === 'string' && isset($PropertySchema->enum) && $PropertySchema->enum){
+                            if ($PropertySchema->type === 'string' && isset($PropertySchema->enum) && $PropertySchema->enum) {
                                 $comment = "/** $PropertySchema->description */";
                                 $enum_classname = Classname::generate($property_name).'Enum';
                                 $types = [$enum_classname];
@@ -188,6 +190,10 @@ class Swagger
                                         $PropertySchema->enum
                                     ),
                                 ];
+                            }
+
+                            if ($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
+                                $types = [$Swagger->definitions[basename($PropertySchema->ref)]->type];
                             }
 
                             $propertyData[Property::comment] = $comment;
