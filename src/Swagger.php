@@ -13,6 +13,7 @@ use Zerotoprod\DataModelGenerator\Models\Property;
 use Zerotoprod\DataModelSwagger\Schema;
 use Zerotoprod\DataModelSwagger\Swagger as SwaggerModel;
 use Zerotoprod\Psr4Classname\Classname;
+use Zerotoprod\Psr4VarName\Psr4VarName;
 
 class Swagger
 {
@@ -39,7 +40,7 @@ class Swagger
                     Enum::backed_type => BackedEnumType::string,
                     Enum::cases => array_map(
                         static fn($value) => [
-                            EnumCase::name => $value,
+                            EnumCase::name => Psr4VarName::generate($value),
                             EnumCase::value => "'$value'"
                         ],
                         $Schema->enum
@@ -184,7 +185,7 @@ class Swagger
                                     Enum::backed_type => BackedEnumType::string,
                                     Enum::cases => array_map(
                                         static fn($value) => [
-                                            EnumCase::name => $value,
+                                            EnumCase::name => Psr4VarName::generate($value),
                                             EnumCase::value => "'$value'"
                                         ],
                                         $PropertySchema->enum
