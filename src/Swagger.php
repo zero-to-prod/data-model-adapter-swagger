@@ -89,7 +89,7 @@ class Swagger
                 Model::properties => array_combine(
                     array_keys($Properties),
                     array_map(
-                        static function (string $property_name, Schema $PropertySchema) use ($Swagger) {
+                        static function (string $property_name, Schema $PropertySchema) use ($name, $Schema, $Swagger, &$Enums) {
                             $propertyData = [
                                 Property::attributes => [],
                                 Property::comment => null,
@@ -168,6 +168,26 @@ class Swagger
                                         $attributes = null;
                                     }
                                 }
+                            }
+
+                            if($PropertySchema->type === 'string' && isset($PropertySchema->enum) && $PropertySchema->enum){
+                                $comment = "/** $PropertySchema->description */";
+                                $enum_classname = Classname::generate($property_name).'Enum';
+                                $types = [$enum_classname];
+                                $attributes = null;
+
+                                $Enums[$name] = [
+                                    Enum::comment => $Schema->description ? "/** $Schema->description */" : null,
+                                    Enum::filename => Classname::generate($enum_classname, 'Enum.php'),
+                                    Enum::backed_type => BackedEnumType::string,
+                                    Enum::cases => array_map(
+                                        static fn($value) => [
+                                            EnumCase::name => $value,
+                                            EnumCase::value => "'$value'"
+                                        ],
+                                        $PropertySchema->enum
+                                    ),
+                                ];
                             }
 
                             $propertyData[Property::comment] = $comment;
