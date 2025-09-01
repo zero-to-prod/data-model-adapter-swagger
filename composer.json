@@ -17,6 +17,9 @@
   },
   "license": "MIT",
   "readme": "./README.md",
+  "bin": [
+    "bin/zero-to-prod-data-model-adapter-swagger"
+  ],
   "authors": [
     {
       "name": "David Smith",
