@@ -15,8 +15,15 @@ use Zerotoprod\DataModelSwagger\Swagger as SwaggerModel;
 use Zerotoprod\Psr4Classname\Classname;
 use Zerotoprod\Psr4VarName\Psr4VarName;
 
+/**
+ * Adapter for the Swagger 2.0 for DataModelGenerator
+ * @link https://github.com/zero-to-prod/data-model-adapter-swagger
+ */
 class Swagger
 {
+    /**
+     * @link https://github.com/zero-to-prod/data-model-adapter-swagger
+     */
     public static function adapt(array $swagger_schema): Components
     {
         $Swagger = SwaggerModel::from($swagger_schema);
