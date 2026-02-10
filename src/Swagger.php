@@ -65,20 +65,21 @@ class Swagger
                 : $Schema->required;
 
             foreach ($Properties as $property_name => $Property) {
+                $psr_name = Psr4VarName::generate($property_name);
                 $comment = $Property->description
                     ?
                     <<<PHP
                         /**
                          * $Property->description
                          *
-                         * @see $$property_name
+                         * @see $$psr_name
                          */
                         PHP
                     : <<<PHP
-                        /** @see $$property_name */
+                        /** @see $$psr_name */
                         PHP;
 
-                $constants[$property_name] = [
+                $constants[$psr_name] = [
                     Constant::comment => $comment,
                     Constant::value => "'$property_name'",
                     Constant::type => 'string'
@@ -99,7 +100,7 @@ class Swagger
                 Model::filename => Classname::generate($name, '.php'),
                 Model::constants => $constants,
                 Model::properties => array_combine(
-                    array_keys($Properties),
+                    array_map(static fn($k) => Psr4VarName::generate($k), array_keys($Properties)),
                     array_map(
                         static function (string $property_name, Schema $PropertySchema) use ($Schema, $Swagger, &$Enums, $requiredFields) {
                             $propertyData = [
@@ -207,6 +208,26 @@ class Swagger
 
                             if ($PropertySchema->ref && isset($Swagger->definitions[basename($PropertySchema->ref)]) && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
                                 $types = [$Swagger->definitions[basename($PropertySchema->ref)]->type];
+                            }
+
+                            $psr_name = Psr4VarName::generate($property_name);
+                            if ($psr_name !== $property_name) {
+                                $fromParam = "'from' => self::$psr_name";
+                                if ($attributes === null) {
+                                    $attributes = [];
+                                }
+                                $merged = false;
+                                foreach ($attributes as $i => $attr) {
+                                    if (str_contains($attr, '\\Zerotoprod\\DataModel\\Describe(')) {
+                                        $pos = strrpos($attr, '])]');
+                                        $attributes[$i] = substr($attr, 0, $pos).", $fromParam])]";
+                                        $merged = true;
+                                        break;
+                                    }
+                                }
+                                if (!$merged) {
+                                    $attributes[] = "#[\\Zerotoprod\\DataModel\\Describe([$fromParam])]";
+                                }
                             }
 
                             $propertyData[Property::comment] = $comment;

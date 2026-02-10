@@ -1,0 +1,29 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API",
+    "version": "v1.0.0"
+  },
+  "definitions": {
+    "JsonWebKey": {
+      "type": "object",
+      "properties": {
+        "x5c#chain": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Certificate"
+          }
+        }
+      }
+    },
+    "Certificate": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "paths": {}
+}

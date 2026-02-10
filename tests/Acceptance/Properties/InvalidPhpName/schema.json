@@ -1,0 +1,21 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API",
+    "version": "v1.0.0"
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "kid": {
+          "type": "string"
+        },
+        "x5t#S256": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "paths": {}
+}
