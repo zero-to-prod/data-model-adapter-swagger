@@ -31,7 +31,7 @@ class PropertyNumberTest extends TestCase
                 namespace App\DataModels;
                 class User
                 {
-                public LastName \$age;
+                public array \$age;
                 }
                 PHP
         );

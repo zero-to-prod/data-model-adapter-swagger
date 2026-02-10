@@ -118,6 +118,8 @@ class Swagger
                                 $types = ['array'];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'array') {
                                 $types = [basename($PropertySchema->ref)];
+                            } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type === 'object' && !$Swagger->definitions[basename($PropertySchema->ref)]->properties) {
+                                $types = ['array'];
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {
                                 $types = PropertyTypeResolver::resolve($Swagger->definitions[basename($PropertySchema->ref)]);
                             } elseif ($PropertySchema->ref && $Swagger->definitions[basename($PropertySchema->ref)]->type !== 'object' && $Swagger->definitions[basename($PropertySchema->ref)]) {

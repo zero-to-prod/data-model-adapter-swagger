@@ -1,0 +1,26 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API",
+    "version": "v1.0.0"
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "event": {
+          "$ref": "#/definitions/ApplicationEvent"
+        }
+      }
+    },
+    "ApplicationEvent": {
+      "description": "Events that are bound to applications.",
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "paths": {}
+}
