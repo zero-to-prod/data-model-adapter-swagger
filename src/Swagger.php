@@ -56,9 +56,13 @@ class Swagger
                 continue;
             }
             $constants = [];
-            $Properties = $Schema->type === 'array'
+            $isArraySchema = $Schema->type === 'array';
+            $Properties = $isArraySchema
                 ? $Schema->items->properties
                 : $Schema->properties;
+            $requiredFields = $isArraySchema
+                ? $Schema->items->required
+                : $Schema->required;
 
             foreach ($Properties as $property_name => $Property) {
                 $comment = $Property->description
@@ -97,11 +101,12 @@ class Swagger
                 Model::properties => array_combine(
                     array_keys($Properties),
                     array_map(
-                        static function (string $property_name, Schema $PropertySchema) use ($Schema, $Swagger, &$Enums) {
+                        static function (string $property_name, Schema $PropertySchema) use ($Schema, $Swagger, &$Enums, $requiredFields) {
                             $propertyData = [
                                 Property::attributes => [],
                                 Property::comment => null,
                                 Property::types => null,
+                                Property::required => in_array($property_name, $requiredFields, true),
                             ];
 
                             $comment = null;

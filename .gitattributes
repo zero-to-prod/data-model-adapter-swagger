@@ -16,3 +16,4 @@
 /dock                     export-ignore
 /art/                     export-ignore
 /.env.example             export-ignore
+/CLAUDE.md                export-ignore
